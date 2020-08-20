@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import CreateSessionService from '../services/CreateSessionService';
+import AuthenticateUserService from '../services/AuthenticateUserService';
 
 const sessionsRouter = Router();
 
@@ -8,16 +8,16 @@ sessionsRouter.post('/', async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const createSession = new CreateSessionService();
+    const createSession = new AuthenticateUserService();
 
-    const { user } = await createSession.execute({
+    const { user, token } = await createSession.execute({
       email,
       password,
     });
 
     delete user.password;
 
-    return res.json({ user });
+    return res.json({ user, token });
   } catch (err) {
     return res.status(400).json({ error: err.message });
   }
