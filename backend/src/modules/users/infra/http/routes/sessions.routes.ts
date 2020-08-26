@@ -1,13 +1,16 @@
 import { Router } from 'express';
 
-import AuthenticateUserService from '../services/AuthenticateUserService';
+import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
+
+import AuthenticateUserService from '@modules/users/services/AuthenticateUserService';
 
 const sessionsRouter = Router();
 
 sessionsRouter.post('/', async (req, res) => {
   const { email, password } = req.body;
 
-  const createSession = new AuthenticateUserService();
+  const usersRepository = new UsersRepository();
+  const createSession = new AuthenticateUserService(usersRepository);
 
   const { user, token } = await createSession.execute({
     email,
