@@ -6,6 +6,7 @@ import CreateAppointmentService from './CreateAppointmentService';
 describe('CreateAppointment', () => {
   it('shoud be able to create a new appointmnet', async () => {
     const fakeAppointmentsRepository = new FakeAppointmentsRepository();
+
     const createAppointment = new CreateAppointmentService(
       fakeAppointmentsRepository,
     );
@@ -21,6 +22,7 @@ describe('CreateAppointment', () => {
 
   it('shoud not be able to create two appointmnets on the same time', async () => {
     const fakeAppointmentsRepository = new FakeAppointmentsRepository();
+
     const createAppointment = new CreateAppointmentService(
       fakeAppointmentsRepository,
     );
